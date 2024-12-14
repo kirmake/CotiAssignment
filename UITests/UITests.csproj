@@ -26,7 +26,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Tests\" />
     <Folder Include="URLs\" />
     <Folder Include="Pages\" />
   </ItemGroup>
