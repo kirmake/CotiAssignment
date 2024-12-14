@@ -17,7 +17,7 @@ namespace UITests.Tests
         [SetUp]
         public void SetUp()
         {
-            _driver = DriverFactory.CreateChromeDriver();
+            _driver = DriverFactory.CreateChromeDriverWithMetaMask();
             _treasuryPage = new TreasuryPage(_driver);
         }
 
