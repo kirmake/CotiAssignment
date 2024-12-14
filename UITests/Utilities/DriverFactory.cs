@@ -9,6 +9,7 @@ namespace UITests.Utilities
         {
             var options = new ChromeOptions();
             options.AddArguments("--start-maximized");
+            options.AddArguments("disable-blink-features=AutomationControlled");
             return new ChromeDriver(options);
         }
     }
