@@ -1,5 +1,7 @@
 ﻿using OpenQA.Selenium;
+using UITests.Pages;
 using UITests.Utilities;
+
 
 namespace UITests.Tests
 {
@@ -10,12 +12,13 @@ namespace UITests.Tests
         //TODO fix issue
 #pragma warning disable NUnit1032 // An IDisposable field/property should be Disposed in a TearDown method
         private IWebDriver _driver;
-#pragma warning restore NUnit1032 // An IDisposable field/property should be Disposed in a TearDown method
+        private TreasuryPage _treasuryPage;
 
         [SetUp]
         public void SetUp()
         {
             _driver = DriverFactory.CreateChromeDriver();
+            _treasuryPage = new TreasuryPage(_driver);
         }
 
         [Test]
@@ -23,7 +26,8 @@ namespace UITests.Tests
         {
             try
             {
-                _driver.Navigate().GoToUrl("https://treasury.coti.io/");
+                _treasuryPage.Open();
+                _treasuryPage.ClickConnect();
             }
             catch (Exception ex)
             {

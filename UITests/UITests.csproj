@@ -25,9 +25,4 @@
     <Using Include="NUnit.Framework" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="URLs\" />
-    <Folder Include="Pages\" />
-  </ItemGroup>
-
 </Project>
