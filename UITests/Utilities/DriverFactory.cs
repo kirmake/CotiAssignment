@@ -17,8 +17,10 @@ namespace UITests.Utilities
         {
             var options = new ChromeOptions();
             options.AddArguments("--start-maximized");
-            options.AddExtension(Path.Combine(AppDomain.CurrentDomain.BaseDirectory,"ChromeExtentions\\metamask.crx"));
+            options.AddArgument($"user-data-dir={Path.Combine(Directory.GetCurrentDirectory(), "ChromeProfiles", "TestProfile")}"); 
             options.AddArguments("disable-blink-features=AutomationControlled");
+            options.AddExtension(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "ChromeExtentions\\metamask.crx"));
+            
             return new ChromeDriver(options);
         }
     }

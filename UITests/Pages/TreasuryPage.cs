@@ -1,5 +1,6 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
+using SeleniumExtras.WaitHelpers;
 using UITests.URLs;
 
 namespace UITests.Pages
@@ -20,11 +21,40 @@ namespace UITests.Pages
             _driver.Navigate().GoToUrl(Urls.TreasuryPageUrl);
         }
 
-        private By ConnectButton => By.CssSelector("[class^='WalletConnectButton_wrapper'] button");
-
         public void ClickConnect()
         {
-            _wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(ConnectButton)).Click();
+            _wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(ConnectButton)).MoveAndClick();
         }
+
+        public bool IsUnauthorisedPopUpPresented()
+        {
+            try
+            {
+                // Wait for the element to be present
+                IWebElement element = _wait.Until(ExpectedConditions.ElementExists(UnauthorisedPopUp));
+                return element != null;
+            }
+            catch (WebDriverTimeoutException)
+            {
+                return false;
+            }
+        }
+
+        public void AgreeAndConnectViaMetaMask()
+        {
+            var metaMaskWrapper = _driver.FindElement(MetaMaskWrapper);
+            var agreeCheckBox = metaMaskWrapper.FindElement(MetaMaskCheckbox);
+            agreeCheckBox.MoveAndClick();
+           
+            var metamaskSelectButton = metaMaskWrapper.FindElement(MetaMaskSelectButton);
+            _wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(MetaMaskSelectButton)).MoveAndClick();
+        }
+        private By ConnectButton => By.CssSelector("[class^='WalletConnectButton_wrapper'] button");
+        private By MetaMaskWrapper => By.XPath(".//div[contains(@class, 'ConnectType_wrapper') and .//div[text()='MetaMask']]");
+        private By MetaMaskCheckbox => By.XPath(".//label[contains(@class, 'CheckBox_container')]//span");
+        private By ConnectTypeModal => By.CssSelector("[class^='ModalContainer_container']");
+        private By MetaMaskSelectButton => By.XPath(".//button[text()='SELECT']");
+        private By UnauthorisedPopUp => By.XPath(".//div[contains(@class, 'UnauthorizedCountryModal_wrapper')]");
+
     }
 }
