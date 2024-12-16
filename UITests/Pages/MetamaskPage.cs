@@ -1,18 +1,17 @@
-﻿using Microsoft.VisualStudio.TestPlatform.ObjectModel;
-using OpenQA.Selenium;
+﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using SeleniumExtensions;
 using UITests.Settings;
 
 namespace UITests.Pages
 {
-    public class MetamaskHandler
+    public class MetamaskPage
     {
         private readonly IWebDriver _driver;
         private readonly WebDriverWait _wait;
         private readonly string _extensionId = "your-extension-id"; // Replace with your actual extension ID
 
-        public MetamaskHandler(IWebDriver driver)
+        public MetamaskPage(IWebDriver driver)
         {
             _driver = driver ?? throw new ArgumentNullException(nameof(driver));
             _wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(10));
@@ -48,8 +47,6 @@ namespace UITests.Pages
             _driver.SwitchToWindowByExactTitle("MetaMask");
             Console.WriteLine("Switched to extension popup.");
         }
-
-
 
         private void EnterPassword()
         {

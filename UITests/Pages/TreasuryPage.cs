@@ -30,8 +30,20 @@ namespace UITests.Pages
         {
             try
             {
-                // Wait for the element to be present
                 IWebElement element = _wait.Until(ExpectedConditions.ElementExists(UnauthorisedPopUp));
+                return element != null;
+            }
+            catch (WebDriverTimeoutException)
+            {
+                return false;
+            }
+        }
+
+        public bool IsWalletConnectionAddressPresented()
+        {
+            try
+            {
+                IWebElement element = _wait.Until(ExpectedConditions.ElementExists(WalletConnectionAddress));
                 return element != null;
             }
             catch (WebDriverTimeoutException)
@@ -45,7 +57,7 @@ namespace UITests.Pages
             var metaMaskWrapper = _driver.FindElement(MetaMaskWrapper);
             var agreeCheckBox = metaMaskWrapper.FindElement(MetaMaskCheckbox);
             agreeCheckBox.MoveAndClick();
-           
+
             var metamaskSelectButton = metaMaskWrapper.FindElement(MetaMaskSelectButton);
             _wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(MetaMaskSelectButton)).MoveAndClick();
         }
@@ -55,6 +67,7 @@ namespace UITests.Pages
         private By ConnectTypeModal => By.CssSelector("[class^='ModalContainer_container']");
         private By MetaMaskSelectButton => By.XPath(".//button[text()='SELECT']");
         private By UnauthorisedPopUp => By.XPath(".//div[contains(@class, 'UnauthorizedCountryModal_wrapper')]");
+        private By WalletConnectionAddress => By.XPath(".//div[contains(@class, 'WalletConnectButton_address')]");
 
     }
 }

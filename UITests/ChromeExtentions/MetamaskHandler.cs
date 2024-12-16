@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using OpenQA.Selenium;
+using OpenQA.Selenium.Support.UI;
 using UITests.Settings;
+
 
 namespace UITests.ChromeExtentions
 {
@@ -28,7 +26,7 @@ namespace UITests.ChromeExtentions
         private void OpenExtension()
         {
             Console.WriteLine("Opening extension...");
-            ((IJavaScriptExecutor)_driver).ExecuteScript($"chrome.runtime.sendMessage('{Settings.MetaMaskId}', {{action: 'open-popup'}});");
+            ((IJavaScriptExecutor)_driver).ExecuteScript($"chrome.runtime.sendMessage('{MetaMaskSettings.MetaMaskId}', {{action: 'open-popup'}});");
         }
 
         private void SwitchToExtensionPopup()
@@ -50,7 +48,7 @@ namespace UITests.ChromeExtentions
             var passwordField = _driver.FindElement(By.CssSelector("input[type='password']"));
 
             // Enter the password
-            passwordField.SendKeys(Settings.Password);
+            passwordField.SendKeys(MetaMaskSettings.MetaMaskPassword);
 
             // Locate and click the submit/login button
             var loginButton = _driver.FindElement(By.CssSelector("button[type='submit']"));

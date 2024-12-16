@@ -1,5 +1,6 @@
 ﻿using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium;
+using UITests.Settings;
 
 namespace UITests.Utilities
 {
@@ -13,11 +14,15 @@ namespace UITests.Utilities
             return new ChromeDriver(options);
         }
 
-        public static IWebDriver CreateChromeDriverWithMetaMask()
+        public static IWebDriver CreateChromeDriverWithMetaMask(bool vpnRequired=false)
         {
+
             var options = new ChromeOptions();
+            var chromeProfile = vpnRequired ? Profiles.VpnProfileName : Profiles.DefaultProfileName;
             options.AddArguments("--start-maximized");
-            options.AddArgument($"user-data-dir={Path.Combine(Directory.GetCurrentDirectory(), "ChromeProfiles", "TestProfile")}"); 
+            options.AddArgument($"user-data-dir={Path.Combine(Directory.GetCurrentDirectory(), "ChromeProfiles", chromeProfile)}");
+
+            options.AddArgument("--ignore-certificate-errors");
             options.AddArguments("disable-blink-features=AutomationControlled");
             options.AddExtension(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "ChromeExtentions\\metamask.crx"));
             
