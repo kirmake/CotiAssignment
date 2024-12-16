@@ -9,7 +9,6 @@ namespace UITests.Pages
     {
         private readonly IWebDriver _driver;
         private readonly WebDriverWait _wait;
-        private readonly string _extensionId = "your-extension-id"; // Replace with your actual extension ID
 
         public MetamaskPage(IWebDriver driver)
         {
